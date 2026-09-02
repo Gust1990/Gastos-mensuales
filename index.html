@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F172A">
+    <title>Control de Pagos</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB4PSIxMDAiIHk9IjQ4IiB3aWR0aD0iMzEyIiBoZWlnaHQ9IjQxNiIgcng9IjMyIiBmaWxsPSIjMUU0MEFGIi8+PHJlY3QgeD0iMTMyIiB5PSI0OCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSI0MTYiIHJ4PSIzMiIgZmlsbD0iIzI1NjNFQiIvPjxwYXRoIGQ9Ik04MCAxMTJoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6IiBmaWxsPSIjQ0JFNUUxIi8+PGNpcmNsZSBjeD0iMjcyIiBjeT0iMjU2IiByPSI3MiIgZmlsbD0iIzEwQjk4MSIvPjx0ZXh0IHg9IjI3MiIgeT0iMjk1IiBmb250LXNpemU9IjExMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JDwvdGV4dD48L3N2Zz4=">
+    <link class="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB4PSIxMDAiIHk9IjQ4IiB3aWR0aD0iMzEyIiBoZWlnaHQ9IjQxNiIgcng9IjMyIiBmaWxsPSIjMUU0MEFGIi8+PHJlY3QgeD0iMTMyIiB5PSI0OCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSI0MTYiIHJ4PSIzMiIgZmlsbD0iIzI1NjNFQiIvPjxwYXRoIGQ9Ik04MCAxMTJoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6IiBmaWxsPSIjQ0JFNUUxIi8+PGNpcmNsZSBjeD0iMjcyIiBjeT0iMjU2IiByPSI3MiIgZmlsbD0iIzEwQjk4MSIvPjx0ZXh0IHg9IjI3MiIgeT0iMjk1IiBmb250LXNpemU9IjExMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JDwvdGV4dD48L3N2Zz4=">
+    
+    <link rel="manifest" href='data:application/manifest+json;utf8,{"name":"Control de Pagos","short_name":"Pagos","start_url":".","display":"standalone","background_color":"#F3F4F6","theme_color":"#0F172A","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB4PSIxMDAiIHk9IjQ4IiB3aWR0aD0iMzEyIiBoZWlnaHQ9IjQxNiIgcng9IjMyIiBmaWxsPSIjMUU0MEFGIi8+PHJlY3QgeD0iMTMyIiB5PSI0OCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSI0MTYiIHJ4PSIzMiIgZmlsbD0iIzI1NjNFQiIvPjxwYXRoIGQ9Ik04MCAxMTJoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6bTAgODBoODB2MjRIODB6IiBmaWxsPSIjQ0JFNUUxIi8+PGNpcmNsZSBjeD0iMjcyIiBjeT0iMjU2IiByPSI3MiIgZmlsbD0iIzEwQjk4MSIvPjx0ZXh0IHg9IjI3MiIgeT0iMjk1IiBmb250LXNpemU9IjExMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+JDwvdGV4dD48L3N2Zz4=","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}]}'>
+
+    <style>
+        :root {
+            --primary-color: #0F172A;
+            --accent-color: #1E40AF;
+            --secondary-color: #475569;
+            --bg-color: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --success-color: #10B981;
+            --border-color: #E2E8F0;
+            --countdown-bg: #FEF3C7;
+            --countdown-text: #92400E;
+            --total-bg: #F1F5F9;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: #1E293B;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 550px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 28px 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .header-main {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .header p {
+            margin: 4px 0 0;
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .countdown-badge {
+            background-color: var(--countdown-bg);
+            color: var(--countdown-text);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .agenda-content {
+            padding: 24px;
+        }
+
+        .alert-note {
+            background-color: #FEF2F2;
+            color: #991B1B;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            border: 1px solid #FCA5A5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .date-section {
+            background: #ffffff;
+            border-radius: 12px;
+        }
+
+        .expense-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+            background-color: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .expense-item:hover {
+            border-color: var(--accent-color);
+            background-color: #F1F5F9;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .expense-item input[type="checkbox"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #94A3B8;
+            border-radius: 6px;
+            margin-right: 14px;
+            cursor: pointer;
+            position: relative;
+            background-color: white;
+            transition: all 0.15s ease;
+        }
+
+        .expense-item input[type="checkbox"]:checked {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .expense-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            font-size: 14px;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .expense-label {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .amount-container {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border: 1px solid #CBD5E1;
+            border-radius: 6px;
+            padding: 2px 6px;
+            max-width: 120px;
+        }
+
+        .currency-symbol {
+            font-size: 0.9rem;
+            color: #64748B;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        .amount-input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #334155;
+            text-align: right;
+            font-family: inherit;
+        }
+
+        .amount-input::-webkit-outer-spin-button,
+        .amount-input::-webkit-inner-spin-button {
+            appearance: none;
+            margin: 0;
+        }
+
+        .expense-item.completed {
+            opacity: 0.55;
+            background-color: #EDF2F7;
+            border-color: #CBD5E1;
+        }
+        
+        .expense-item.completed .expense-label {
+            text-decoration: line-through;
+            color: #64748B;
+        }
+
+        .expense-item.completed .amount-container {
+            background-color: #E2E8F0;
+            border-color: #CBD5E1;
+        }
+
+        .expense-item.completed .amount-input {
+            background-color: #E2E8F0;
+            color: #64748B;
+            text-decoration: line-through;
+        }
+
+        .total-general-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 18px;
+            margin-top: 24px;
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.2);
+        }
+
+        .total-general-box span:last-child {
+            font-size: 1.35rem;
+            color: #10B981;
+        }
+
+        .reset-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 25px;
+            background-color: transparent;
+            color: #64748B;
+            border: 1px dashed #CBD5E1;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .reset-btn:hover {
+            background-color: #FFF5F5;
+            color: #DC2626;
+            border-color: #FCA5A5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <div class="header">
+            <div class="header-main">
+                <div>
+                    <h1>Panel de Vencimientos</h1>
+                    <p>Gestión y Conciliación Mensual</p>
+                </div>
+                <div class="countdown-badge" id="countdown-display">Calculando...</div>
+            </div>
+        </div>
+
+        <div class="agenda-content">
+            <div class="alert-note">
+                ⚠️ Pagar todos antes del 9 de cada mes
+            </div>
+
+            <div class="date-section">
+                <div class="expense-item" id="item-alquiler">
+                    <div class="checkbox-container" onclick="toggleCheck('alquiler')">
+                        <input type="checkbox" id="chk-alquiler" onclick="event.stopPropagation();" onchange="saveState('alquiler')">
+                        <span class="expense-label">1. Alquiler departamento</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-alquiler" class="amount-input" value="10" onchange="saveAmount('alquiler')">
+                    </div>
+                </div>
+                
+                <div class="expense-item" id="item-expensas">
+                    <div class="checkbox-container" onclick="toggleCheck('expensas')">
+                        <input type="checkbox" id="chk-expensas" onclick="event.stopPropagation();" onchange="saveState('expensas')">
+                        <span class="expense-label">2. Expensas</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-expensas" class="amount-input" value="10" onchange="saveAmount('expensas')">
+                    </div>
+                </div>
+
+                <div class="expense-item" id="item-agua">
+                    <div class="checkbox-container" onclick="toggleCheck('agua')">
+                        <input type="checkbox" id="chk-agua" onclick="event.stopPropagation();" onchange="saveState('agua')">
+                        <span class="expense-label">3. Agua</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-agua" class="amount-input" value="10" onchange="saveAmount('agua')">
+                    </div>
+                </div>
+
+                <div class="expense-item" id="item-naranja">
+                    <div class="checkbox-container" onclick="toggleCheck('naranja')">
+                        <input type="checkbox" id="chk-naranja" onclick="event.stopPropagation();" onchange="saveState('naranja')">
+                        <span class="expense-label">4. Tarjeta Naranja</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-naranja" class="amount-input" value="1000" onchange="saveAmount('naranja')">
+                    </div>
+                </div>
+                
+                <div class="expense-item" id="item-wifi">
+                    <div class="checkbox-container" onclick="toggleCheck('wifi')">
+                        <input type="checkbox" id="chk-wifi" onclick="event.stopPropagation();" onchange="saveState('wifi')">
+                        <span class="expense-label">5. WIFI</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-wifi" class="amount-input" value="20" onchange="saveAmount('wifi')">
+                    </div>
+                </div>
+
+                <div class="expense-item" id="item-gas">
+                    <div class="checkbox-container" onclick="toggleCheck('gas')">
+                        <input type="checkbox" id="chk-gas" onclick="event.stopPropagation();" onchange="saveState('gas')">
+                        <span class="expense-label">6. Gas</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-gas" class="amount-input" value="20" onchange="saveAmount('gas')">
+                    </div>
+                </div>
+
+                <div class="expense-item" id="item-luz">
+                    <div class="checkbox-container" onclick="toggleCheck('luz')">
+                        <input type="checkbox" id="chk-luz" onclick="event.stopPropagation();" onchange="saveState('luz')">
+                        <span class="expense-label">7. Luz</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-luz" class="amount-input" value="20" onchange="saveAmount('luz')">
+                    </div>
+                </div>
+
+                <div class="expense-item" id="item-supermercado">
+                    <div class="checkbox-container" onclick="toggleCheck('supermercado')">
+                        <input type="checkbox" id="chk-supermercado" onclick="event.stopPropagation();" onchange="saveState('supermercado')">
+                        <span class="expense-label">8. Supermercado</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-supermercado" class="amount-input" value="0" onchange="saveAmount('supermercado')">
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-general-box">
+                <span>PAGO GENERAL TOTAL:</span>
+                <span id="total-general">$ 0</span>
+            </div>
+
+            <button class="reset-btn" onclick="resetAgenda()">Reiniciar Estado Mensual</button>
+        </div>
+    </div>
+
+    <script>
+        const allItems = ['alquiler', 'expensas', 'agua', 'naranja', 'wifi', 'gas', 'luz', 'supermercado'];
+
+        const formatter = new Intl.NumberFormat('es-AR', {
+            maximumFractionDigits: 0,
+            minimumFractionDigits: 0
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            allItems.forEach(id => {
+                const checkbox = document.getElementById(`chk-${id}`);
+                const amountInput = document.getElementById(`amt-${id}`);
+                
+                const isChecked = localStorage.getItem(`chk-${id}`) === 'true';
+                if (checkbox) checkbox.checked = isChecked;
+                
+                const savedAmount = localStorage.getItem(`amt-${id}`);
+                if (savedAmount !== null && amountInput) {
+                    amountInput.value = Math.round(parseFloat(savedAmount));
+                }
+                
+                updateItemStyle(id);
+            });
+
+            calculateSequentialCountdown();
+            calculateTotals();
+        });
+
+        function toggleCheck(id) {
+            const checkbox = document.getElementById(`chk-${id}`);
+            if(checkbox) {
+                checkbox.checked = !checkbox.checked;
+                saveState(id);
+            }
+        }
+
+        function saveState(id) {
+            const checkbox = document.getElementById(`chk-${id}`);
+            if(checkbox) {
+                localStorage.setItem(`chk-${id}`, checkbox.checked);
+                updateItemStyle(id);
+            }
+        }
+
+        function saveAmount(id) {
+            const amountInput = document.getElementById(`amt-${id}`);
+            if(!amountInput) return;
+
+            let value = Math.round(parseFloat(amountInput.value));
+            if (isNaN(value)) value = 0;
+            
+            amountInput.value = value;
+            localStorage.setItem(`amt-${id}`, value);
+            calculateTotals();
+        }
+
+        function updateItemStyle(id) {
+            const row = document.getElementById(`item-${id}`);
+            const checkbox = document.getElementById(`chk-${id}`);
+            if (row && checkbox) {
+                if (checkbox.checked) {
+                    row.classList.add('completed');
+                } else {
+                    row.classList.remove('completed');
+                }
+            }
+        }
+
+        function calculateTotals() {
+            let totalGeneral = 0;
+            allItems.forEach(id => {
+                const amountInput = document.getElementById(`amt-${id}`);
+                if (amountInput) {
+                    const val = parseInt(amountInput.value, 10);
+                    totalGeneral += isNaN(val) ? 0 : val;
+                }
+            });
+
+            document.getElementById('total-general').innerText = `$ ${formatter.format(totalGeneral)}`;
+        }
+
+        function calculateSequentialCountdown() {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const currentDay = now.getDate();
+            
+            let targetDate;
+            
+            if (currentDay <= 9) {
+                targetDate = new Date(now.getFullYear(), now.getMonth(), 9);
+            } else {
+                targetDate = new Date(now.getFullYear(), now.getMonth() + 1, 9);
+            }
+            
+            const diffTime = targetDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            const display = document.getElementById('countdown-display');
+            if (diffDays === 0) {
+                display.innerText = `📅 ¡Hoy es el último día para pagar!`;
+                display.style.backgroundColor = "#FCA5A5";
+                display.style.color = "#7F1D1D";
+            } else {
+                display.innerText = `⏳ Faltan ${diffDays} días para el 9`;
+                display.style.backgroundColor = "var(--countdown-bg)";
+                display.style.color = "var(--countdown-text)";
+            }
+        }
+
+        function resetAgenda() {
+            if(confirm('¿Deseas desmarcar todos los pagos completados para iniciar el nuevo ciclo mensual?')) {
+                allItems.forEach(id => {
+                    const checkbox = document.getElementById(`chk-${id}`);
+                    if(checkbox) {
+                        checkbox.checked = false;
+                        localStorage.setItem(`chk-${id}`, 'false');
+                        updateItemStyle(id);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
