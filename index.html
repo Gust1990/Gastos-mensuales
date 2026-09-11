@@ -21,6 +21,7 @@
             --bg-color: #F8FAFC;
             --card-bg: #FFFFFF;
             --success-color: #10B981;
+            --danger-color: #EF4444;
             --border-color: #E2E8F0;
             --countdown-bg: #FEF3C7;
             --countdown-text: #92400E;
@@ -106,9 +107,21 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin: 0 0 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
         .date-section {
             background: #ffffff;
             border-radius: 12px;
+            margin-bottom: 24px;
         }
 
         .expense-item {
@@ -227,22 +240,34 @@
 
         .total-general-box {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 18px;
-            margin-top: 24px;
+            flex-direction: column;
+            gap: 12px;
+            padding: 20px;
+            margin-top: 10px;
             background-color: var(--primary-color);
             color: #FFFFFF;
             border-radius: 10px;
-            font-weight: 700;
-            font-size: 1.15rem;
+            font-weight: 600;
+            font-size: 1rem;
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.2);
         }
 
-        .total-general-box span:last-child {
-            font-size: 1.35rem;
-            color: #10B981;
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
+
+        .total-row.balance {
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .color-success { color: #34D399; } /* Verde claro para fondo oscuro */
+        .color-danger { color: #F87171; } /* Rojo claro para fondo oscuro */
 
         .reset-btn {
             display: block;
@@ -284,11 +309,40 @@
                 ⚠️ Pagar todos antes del 9 de cada mes
             </div>
 
+            <!-- SECCIÓN ACTIVOS -->
+            <h2 class="section-title">Activos (Ingresos)</h2>
             <div class="date-section">
+                <div class="expense-item" id="item-alquiler_favor">
+                    <div class="checkbox-container" onclick="toggleCheck('alquiler_favor')">
+                        <input type="checkbox" id="chk-alquiler_favor" onclick="event.stopPropagation();" onchange="saveState('alquiler_favor')">
+                        <span class="expense-label">1. Alquiler</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-alquiler_favor" class="amount-input" value="600000" onchange="saveAmount('alquiler_favor')">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN PASIVOS -->
+            <h2 class="section-title">Pasivos (Egresos)</h2>
+            <div class="date-section">
+                
+                <div class="expense-item" id="item-terreno">
+                    <div class="checkbox-container" onclick="toggleCheck('terreno')">
+                        <input type="checkbox" id="chk-terreno" onclick="event.stopPropagation();" onchange="saveState('terreno')">
+                        <span class="expense-label">1. Terreno</span>
+                    </div>
+                    <div class="amount-container">
+                        <span class="currency-symbol">$</span>
+                        <input type="number" step="1" id="amt-terreno" class="amount-input" value="300000" onchange="saveAmount('terreno')">
+                    </div>
+                </div>
+
                 <div class="expense-item" id="item-alquiler">
                     <div class="checkbox-container" onclick="toggleCheck('alquiler')">
                         <input type="checkbox" id="chk-alquiler" onclick="event.stopPropagation();" onchange="saveState('alquiler')">
-                        <span class="expense-label">1. Alquiler departamento</span>
+                        <span class="expense-label">2. Alquiler</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -299,7 +353,7 @@
                 <div class="expense-item" id="item-expensas">
                     <div class="checkbox-container" onclick="toggleCheck('expensas')">
                         <input type="checkbox" id="chk-expensas" onclick="event.stopPropagation();" onchange="saveState('expensas')">
-                        <span class="expense-label">2. Expensas</span>
+                        <span class="expense-label">3. Expensas</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -310,7 +364,7 @@
                 <div class="expense-item" id="item-agua">
                     <div class="checkbox-container" onclick="toggleCheck('agua')">
                         <input type="checkbox" id="chk-agua" onclick="event.stopPropagation();" onchange="saveState('agua')">
-                        <span class="expense-label">3. Agua</span>
+                        <span class="expense-label">4. Agua</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -321,7 +375,7 @@
                 <div class="expense-item" id="item-naranja">
                     <div class="checkbox-container" onclick="toggleCheck('naranja')">
                         <input type="checkbox" id="chk-naranja" onclick="event.stopPropagation();" onchange="saveState('naranja')">
-                        <span class="expense-label">4. Tarjeta Naranja</span>
+                        <span class="expense-label">5. Tarjeta Naranja</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -332,7 +386,7 @@
                 <div class="expense-item" id="item-wifi">
                     <div class="checkbox-container" onclick="toggleCheck('wifi')">
                         <input type="checkbox" id="chk-wifi" onclick="event.stopPropagation();" onchange="saveState('wifi')">
-                        <span class="expense-label">5. WIFI</span>
+                        <span class="expense-label">6. WIFI</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -343,7 +397,7 @@
                 <div class="expense-item" id="item-gas">
                     <div class="checkbox-container" onclick="toggleCheck('gas')">
                         <input type="checkbox" id="chk-gas" onclick="event.stopPropagation();" onchange="saveState('gas')">
-                        <span class="expense-label">6. Gas</span>
+                        <span class="expense-label">7. Gas</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -354,7 +408,7 @@
                 <div class="expense-item" id="item-luz">
                     <div class="checkbox-container" onclick="toggleCheck('luz')">
                         <input type="checkbox" id="chk-luz" onclick="event.stopPropagation();" onchange="saveState('luz')">
-                        <span class="expense-label">7. Luz</span>
+                        <span class="expense-label">8. Luz</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -365,7 +419,7 @@
                 <div class="expense-item" id="item-supermercado">
                     <div class="checkbox-container" onclick="toggleCheck('supermercado')">
                         <input type="checkbox" id="chk-supermercado" onclick="event.stopPropagation();" onchange="saveState('supermercado')">
-                        <span class="expense-label">8. Supermercado</span>
+                        <span class="expense-label">9. Supermercado</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
@@ -374,9 +428,20 @@
                 </div>
             </div>
 
+            <!-- RESUMEN FINANCIERO -->
             <div class="total-general-box">
-                <span>PAGO GENERAL TOTAL:</span>
-                <span id="total-general">$ 0</span>
+                <div class="total-row">
+                    <span>Total Activos:</span>
+                    <span id="total-activos" class="color-success">$ 0</span>
+                </div>
+                <div class="total-row">
+                    <span>Total Pasivos:</span>
+                    <span id="total-pasivos" class="color-danger">$ 0</span>
+                </div>
+                <div class="total-row balance">
+                    <span>BALANCE NETO:</span>
+                    <span id="balance-general">$ 0</span>
+                </div>
             </div>
 
             <button class="reset-btn" onclick="resetAgenda()">Reiniciar Estado Mensual</button>
@@ -384,7 +449,10 @@
     </div>
 
     <script>
-        const allItems = ['alquiler', 'expensas', 'agua', 'naranja', 'wifi', 'gas', 'luz', 'supermercado'];
+        // Listas separadas para cálculos
+        const activosIds = ['alquiler_favor'];
+        const pasivosIds = ['terreno', 'alquiler', 'expensas', 'agua', 'naranja', 'wifi', 'gas', 'luz', 'supermercado'];
+        const allItems = [...activosIds, ...pasivosIds];
 
         const formatter = new Intl.NumberFormat('es-AR', {
             maximumFractionDigits: 0,
@@ -452,16 +520,39 @@
         }
 
         function calculateTotals() {
-            let totalGeneral = 0;
-            allItems.forEach(id => {
+            let totalActivos = 0;
+            activosIds.forEach(id => {
                 const amountInput = document.getElementById(`amt-${id}`);
                 if (amountInput) {
                     const val = parseInt(amountInput.value, 10);
-                    totalGeneral += isNaN(val) ? 0 : val;
+                    totalActivos += isNaN(val) ? 0 : val;
                 }
             });
 
-            document.getElementById('total-general').innerText = `$ ${formatter.format(totalGeneral)}`;
+            let totalPasivos = 0;
+            pasivosIds.forEach(id => {
+                const amountInput = document.getElementById(`amt-${id}`);
+                if (amountInput) {
+                    const val = parseInt(amountInput.value, 10);
+                    totalPasivos += isNaN(val) ? 0 : val;
+                }
+            });
+
+            const balanceNeto = totalActivos - totalPasivos;
+
+            // Actualizar la interfaz
+            document.getElementById('total-activos').innerText = `$ ${formatter.format(totalActivos)}`;
+            document.getElementById('total-pasivos').innerText = `$ ${formatter.format(totalPasivos)}`;
+            
+            const balanceEl = document.getElementById('balance-general');
+            balanceEl.innerText = `$ ${formatter.format(balanceNeto)}`;
+            
+            // Cambiar color del balance dependiendo de si es positivo o negativo
+            if (balanceNeto >= 0) {
+                balanceEl.style.color = '#34D399'; // Verde
+            } else {
+                balanceEl.style.color = '#F87171'; // Rojo
+            }
         }
 
         function calculateSequentialCountdown() {
