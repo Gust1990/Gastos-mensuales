@@ -63,6 +63,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
         }
 
         .header h1 {
@@ -158,6 +159,7 @@
             position: relative;
             background-color: white;
             transition: all 0.15s ease;
+            flex-shrink: 0;
         }
 
         .expense-item input[type="checkbox"]:checked {
@@ -266,14 +268,57 @@
             border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .color-success { color: #34D399; } /* Verde claro para fondo oscuro */
-        .color-danger { color: #F87171; } /* Rojo claro para fondo oscuro */
+        .color-success { color: #34D399; }
+        .color-danger { color: #F87171; }
+
+        .backup-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .backup-btn {
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background-color: #F1F5F9;
+            color: #1E293B;
+            transition: all 0.2s;
+        }
+
+        .backup-btn:hover {
+            background-color: #E2E8F0;
+            border-color: #94A3B8;
+        }
+
+        .backup-btn.export {
+            background-color: #EFF6FF;
+            color: #1E40AF;
+            border-color: #BFDBFE;
+        }
+
+        .backup-btn.export:hover {
+            background-color: #DBEAFE;
+        }
+
+        .status-msg {
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+            min-height: 20px;
+            color: var(--success-color);
+        }
 
         .reset-btn {
             display: block;
             width: 100%;
             padding: 14px;
-            margin-top: 25px;
+            margin-top: 12px;
             background-color: transparent;
             color: #64748B;
             border: 1px dashed #CBD5E1;
@@ -314,12 +359,12 @@
             <div class="date-section">
                 <div class="expense-item" id="item-alquiler_favor">
                     <div class="checkbox-container" onclick="toggleCheck('alquiler_favor')">
-                        <input type="checkbox" id="chk-alquiler_favor" onclick="event.stopPropagation();" onchange="saveState('alquiler_favor')">
+                        <input type="checkbox" id="chk-alquiler_favor" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">1. Alquiler</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-alquiler_favor" class="amount-input" value="600000" onchange="saveAmount('alquiler_favor')">
+                        <input type="number" step="1" id="amt-alquiler_favor" class="amount-input" value="420000" oninput="handleAmountChange('alquiler_favor')">
                     </div>
                 </div>
             </div>
@@ -330,100 +375,100 @@
                 
                 <div class="expense-item" id="item-terreno">
                     <div class="checkbox-container" onclick="toggleCheck('terreno')">
-                        <input type="checkbox" id="chk-terreno" onclick="event.stopPropagation();" onchange="saveState('terreno')">
+                        <input type="checkbox" id="chk-terreno" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">1. Terreno</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-terreno" class="amount-input" value="300000" onchange="saveAmount('terreno')">
+                        <input type="number" step="1" id="amt-terreno" class="amount-input" value="250000" oninput="handleAmountChange('terreno')">
                     </div>
                 </div>
 
                 <div class="expense-item" id="item-alquiler">
                     <div class="checkbox-container" onclick="toggleCheck('alquiler')">
-                        <input type="checkbox" id="chk-alquiler" onclick="event.stopPropagation();" onchange="saveState('alquiler')">
+                        <input type="checkbox" id="chk-alquiler" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">2. Alquiler</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-alquiler" class="amount-input" value="10" onchange="saveAmount('alquiler')">
+                        <input type="number" step="1" id="amt-alquiler" class="amount-input" value="420000" oninput="handleAmountChange('alquiler')">
                     </div>
                 </div>
                 
                 <div class="expense-item" id="item-expensas">
                     <div class="checkbox-container" onclick="toggleCheck('expensas')">
-                        <input type="checkbox" id="chk-expensas" onclick="event.stopPropagation();" onchange="saveState('expensas')">
+                        <input type="checkbox" id="chk-expensas" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">3. Expensas</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-expensas" class="amount-input" value="10" onchange="saveAmount('expensas')">
+                        <input type="number" step="1" id="amt-expensas" class="amount-input" value="62000" oninput="handleAmountChange('expensas')">
                     </div>
                 </div>
 
                 <div class="expense-item" id="item-agua">
                     <div class="checkbox-container" onclick="toggleCheck('agua')">
-                        <input type="checkbox" id="chk-agua" onclick="event.stopPropagation();" onchange="saveState('agua')">
+                        <input type="checkbox" id="chk-agua" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">4. Agua</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-agua" class="amount-input" value="10" onchange="saveAmount('agua')">
+                        <input type="number" step="1" id="amt-agua" class="amount-input" value="30000" oninput="handleAmountChange('agua')">
                     </div>
                 </div>
 
                 <div class="expense-item" id="item-naranja">
                     <div class="checkbox-container" onclick="toggleCheck('naranja')">
-                        <input type="checkbox" id="chk-naranja" onclick="event.stopPropagation();" onchange="saveState('naranja')">
+                        <input type="checkbox" id="chk-naranja" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">5. Tarjeta Naranja</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-naranja" class="amount-input" value="1000" onchange="saveAmount('naranja')">
+                        <input type="number" step="1" id="amt-naranja" class="amount-input" value="900000" oninput="handleAmountChange('naranja')">
                     </div>
                 </div>
                 
                 <div class="expense-item" id="item-wifi">
                     <div class="checkbox-container" onclick="toggleCheck('wifi')">
-                        <input type="checkbox" id="chk-wifi" onclick="event.stopPropagation();" onchange="saveState('wifi')">
+                        <input type="checkbox" id="chk-wifi" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">6. WIFI</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-wifi" class="amount-input" value="20" onchange="saveAmount('wifi')">
+                        <input type="number" step="1" id="amt-wifi" class="amount-input" value="25000" oninput="handleAmountChange('wifi')">
                     </div>
                 </div>
 
                 <div class="expense-item" id="item-gas">
                     <div class="checkbox-container" onclick="toggleCheck('gas')">
-                        <input type="checkbox" id="chk-gas" onclick="event.stopPropagation();" onchange="saveState('gas')">
+                        <input type="checkbox" id="chk-gas" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">7. Gas</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-gas" class="amount-input" value="20" onchange="saveAmount('gas')">
+                        <input type="number" step="1" id="amt-gas" class="amount-input" value="8000" oninput="handleAmountChange('gas')">
                     </div>
                 </div>
 
                 <div class="expense-item" id="item-luz">
                     <div class="checkbox-container" onclick="toggleCheck('luz')">
-                        <input type="checkbox" id="chk-luz" onclick="event.stopPropagation();" onchange="saveState('luz')">
+                        <input type="checkbox" id="chk-luz" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">8. Luz</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-luz" class="amount-input" value="20" onchange="saveAmount('luz')">
+                        <input type="number" step="1" id="amt-luz" class="amount-input" value="44000" oninput="handleAmountChange('luz')">
                     </div>
                 </div>
 
                 <div class="expense-item" id="item-supermercado">
                     <div class="checkbox-container" onclick="toggleCheck('supermercado')">
-                        <input type="checkbox" id="chk-supermercado" onclick="event.stopPropagation();" onchange="saveState('supermercado')">
+                        <input type="checkbox" id="chk-supermercado" onclick="event.stopPropagation();" onchange="saveAllToStorage()">
                         <span class="expense-label">9. Supermercado</span>
                     </div>
                     <div class="amount-container">
                         <span class="currency-symbol">$</span>
-                        <input type="number" step="1" id="amt-supermercado" class="amount-input" value="0" onchange="saveAmount('supermercado')">
+                        <input type="number" step="1" id="amt-supermercado" class="amount-input" value="200000" oninput="handleAmountChange('supermercado')">
                     </div>
                 </div>
             </div>
@@ -444,15 +489,37 @@
                 </div>
             </div>
 
+            <!-- BACKUP -->
+            <div class="backup-actions">
+                <button class="backup-btn export" onclick="exportBackup()">💾 Exportar Backup</button>
+                <button class="backup-btn" onclick="document.getElementById('import-file').click()">📂 Importar Backup</button>
+                <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importBackup(event)">
+            </div>
+            <div id="status-msg" class="status-msg"></div>
+
             <button class="reset-btn" onclick="resetAgenda()">Reiniciar Estado Mensual</button>
         </div>
     </div>
 
     <script>
-        // Listas separadas para cálculos
+        const STORAGE_KEY = 'control_pagos_v2';
+
         const activosIds = ['alquiler_favor'];
         const pasivosIds = ['terreno', 'alquiler', 'expensas', 'agua', 'naranja', 'wifi', 'gas', 'luz', 'supermercado'];
         const allItems = [...activosIds, ...pasivosIds];
+
+        const defaultValues = {
+            alquiler_favor: 420000,
+            terreno: 250000,
+            alquiler: 420000,
+            expensas: 62000,
+            agua: 30000,
+            naranja: 900000,
+            wifi: 25000,
+            gas: 8000,
+            luz: 44000,
+            supermercado: 200000
+        };
 
         const formatter = new Intl.NumberFormat('es-AR', {
             maximumFractionDigits: 0,
@@ -460,50 +527,82 @@
         });
 
         document.addEventListener("DOMContentLoaded", () => {
-            allItems.forEach(id => {
-                const checkbox = document.getElementById(`chk-${id}`);
-                const amountInput = document.getElementById(`amt-${id}`);
-                
-                const isChecked = localStorage.getItem(`chk-${id}`) === 'true';
-                if (checkbox) checkbox.checked = isChecked;
-                
-                const savedAmount = localStorage.getItem(`amt-${id}`);
-                if (savedAmount !== null && amountInput) {
-                    amountInput.value = Math.round(parseFloat(savedAmount));
-                }
-                
-                updateItemStyle(id);
-            });
-
+            loadFromStorage();
             calculateSequentialCountdown();
             calculateTotals();
         });
 
+        function loadFromStorage() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            let savedData = null;
+
+            if (raw) {
+                try {
+                    savedData = JSON.parse(raw);
+                } catch (e) {
+                    savedData = null;
+                }
+            }
+
+            allItems.forEach(id => {
+                const checkbox = document.getElementById(`chk-${id}`);
+                const amountInput = document.getElementById(`amt-${id}`);
+                const itemData = savedData && savedData.items ? savedData.items[id] : null;
+
+                if (checkbox) {
+                    checkbox.checked = itemData ? Boolean(itemData.checked) : false;
+                }
+                if (amountInput) {
+                    const amount = (itemData && typeof itemData.amount === 'number' && !isNaN(itemData.amount))
+                        ? Math.round(itemData.amount)
+                        : defaultValues[id];
+                    amountInput.value = amount;
+                }
+                updateItemStyle(id);
+            });
+
+            // Guarda el estado inicial si todavía no existe en localStorage
+            if (!savedData) {
+                saveAllToStorage();
+            }
+        }
+
+        function buildDataObject() {
+            const items = {};
+            allItems.forEach(id => {
+                const checkbox = document.getElementById(`chk-${id}`);
+                const amountInput = document.getElementById(`amt-${id}`);
+                const val = parseFloat(amountInput ? amountInput.value : 0);
+
+                items[id] = {
+                    checked: checkbox ? checkbox.checked : false,
+                    amount: isNaN(val) ? 0 : Math.round(val)
+                };
+            });
+
+            return {
+                version: 2,
+                updatedAt: new Date().toISOString(),
+                items
+            };
+        }
+
+        function saveAllToStorage() {
+            const data = buildDataObject();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            allItems.forEach(id => updateItemStyle(id));
+        }
+
         function toggleCheck(id) {
             const checkbox = document.getElementById(`chk-${id}`);
-            if(checkbox) {
+            if (checkbox) {
                 checkbox.checked = !checkbox.checked;
-                saveState(id);
+                saveAllToStorage();
             }
         }
 
-        function saveState(id) {
-            const checkbox = document.getElementById(`chk-${id}`);
-            if(checkbox) {
-                localStorage.setItem(`chk-${id}`, checkbox.checked);
-                updateItemStyle(id);
-            }
-        }
-
-        function saveAmount(id) {
-            const amountInput = document.getElementById(`amt-${id}`);
-            if(!amountInput) return;
-
-            let value = Math.round(parseFloat(amountInput.value));
-            if (isNaN(value)) value = 0;
-            
-            amountInput.value = value;
-            localStorage.setItem(`amt-${id}`, value);
+        function handleAmountChange(id) {
+            saveAllToStorage();
             calculateTotals();
         }
 
@@ -511,11 +610,7 @@
             const row = document.getElementById(`item-${id}`);
             const checkbox = document.getElementById(`chk-${id}`);
             if (row && checkbox) {
-                if (checkbox.checked) {
-                    row.classList.add('completed');
-                } else {
-                    row.classList.remove('completed');
-                }
+                row.classList.toggle('completed', checkbox.checked);
             }
         }
 
@@ -523,36 +618,25 @@
             let totalActivos = 0;
             activosIds.forEach(id => {
                 const amountInput = document.getElementById(`amt-${id}`);
-                if (amountInput) {
-                    const val = parseInt(amountInput.value, 10);
-                    totalActivos += isNaN(val) ? 0 : val;
-                }
+                const val = parseInt(amountInput ? amountInput.value : 0, 10);
+                totalActivos += isNaN(val) ? 0 : val;
             });
 
             let totalPasivos = 0;
             pasivosIds.forEach(id => {
                 const amountInput = document.getElementById(`amt-${id}`);
-                if (amountInput) {
-                    const val = parseInt(amountInput.value, 10);
-                    totalPasivos += isNaN(val) ? 0 : val;
-                }
+                const val = parseInt(amountInput ? amountInput.value : 0, 10);
+                totalPasivos += isNaN(val) ? 0 : val;
             });
 
             const balanceNeto = totalActivos - totalPasivos;
 
-            // Actualizar la interfaz
             document.getElementById('total-activos').innerText = `$ ${formatter.format(totalActivos)}`;
             document.getElementById('total-pasivos').innerText = `$ ${formatter.format(totalPasivos)}`;
             
             const balanceEl = document.getElementById('balance-general');
             balanceEl.innerText = `$ ${formatter.format(balanceNeto)}`;
-            
-            // Cambiar color del balance dependiendo de si es positivo o negativo
-            if (balanceNeto >= 0) {
-                balanceEl.style.color = '#34D399'; // Verde
-            } else {
-                balanceEl.style.color = '#F87171'; // Rojo
-            }
+            balanceEl.style.color = balanceNeto >= 0 ? '#34D399' : '#F87171';
         }
 
         function calculateSequentialCountdown() {
@@ -561,7 +645,6 @@
             const currentDay = now.getDate();
             
             let targetDate;
-            
             if (currentDay <= 9) {
                 targetDate = new Date(now.getFullYear(), now.getMonth(), 9);
             } else {
@@ -583,16 +666,82 @@
             }
         }
 
+        function showStatus(message, isError = false) {
+            const el = document.getElementById('status-msg');
+            el.innerText = message;
+            el.style.color = isError ? '#DC2626' : '#10B981';
+            setTimeout(() => {
+                el.innerText = '';
+            }, 3500);
+        }
+
+        function exportBackup() {
+            const data = buildDataObject();
+            const jsonStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+
+            const todayStr = new Date().toISOString().slice(0, 10);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup_pagos_${todayStr}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showStatus('✅ Backup descargado correctamente');
+        }
+
+        function importBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (!parsed || !parsed.items || typeof parsed.items !== 'object') {
+                        throw new Error('Formato inválido');
+                    }
+
+                    allItems.forEach(id => {
+                        const item = parsed.items[id];
+                        if (!item) return;
+
+                        const checkbox = document.getElementById(`chk-${id}`);
+                        const amountInput = document.getElementById(`amt-${id}`);
+
+                        if (checkbox) checkbox.checked = Boolean(item.checked);
+                        if (amountInput && typeof item.amount === 'number' && !isNaN(item.amount)) {
+                            amountInput.value = Math.round(item.amount);
+                        }
+                        updateItemStyle(id);
+                    });
+
+                    saveAllToStorage();
+                    calculateTotals();
+                    showStatus('✅ Backup restaurado con éxito');
+                } catch (err) {
+                    showStatus('❌ El archivo de backup no es válido', true);
+                } finally {
+                    event.target.value = '';
+                }
+            };
+            reader.readAsText(file);
+        }
+
         function resetAgenda() {
-            if(confirm('¿Deseas desmarcar todos los pagos completados para iniciar el nuevo ciclo mensual?')) {
+            if (confirm('¿Deseas desmarcar todos los pagos completados para iniciar el nuevo ciclo mensual?')) {
                 allItems.forEach(id => {
                     const checkbox = document.getElementById(`chk-${id}`);
-                    if(checkbox) {
+                    if (checkbox) {
                         checkbox.checked = false;
-                        localStorage.setItem(`chk-${id}`, 'false');
                         updateItemStyle(id);
                     }
                 });
+                saveAllToStorage();
+                showStatus('🔄 Ciclo mensual reiniciado');
             }
         }
     </script>
